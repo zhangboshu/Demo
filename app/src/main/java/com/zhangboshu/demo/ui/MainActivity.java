@@ -1,10 +1,12 @@
 package com.zhangboshu.demo.ui;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import android.widget.LinearLayout;
 
 import com.zhangboshu.demo.R;
 import com.zhangboshu.demo.base.BaseActivity;
+import com.zhangboshu.demo.utils.BezierEvalutor;
+import com.zhangboshu.demo.utils.DisplayUtil;
 
 import java.util.Random;
 
@@ -30,6 +34,8 @@ public class MainActivity extends BaseActivity {
     private ViewGroup anim_mask_layout;
     private ImageView buyImg;
     private Random random = new Random();
+    private int mWidth;
+    private int mHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,10 @@ public class MainActivity extends BaseActivity {
         button6 = (Button) findViewById(R.id.button6);
         button7 = (Button) findViewById(R.id.button7);
         button8 = (Button) findViewById(R.id.button8);
+
+        mWidth = DisplayUtil.getMobileWidth(this);
+        mHeight = DisplayUtil.getMobileHeight(this);
+
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +89,7 @@ public class MainActivity extends BaseActivity {
         // 计算位移
         int endX = end_location[0] - startLocation[0];// 动画位移的X坐标
         int endY = end_location[1] - startLocation[1];// 动画位移的y坐标
+
 //        TranslateAnimation translateAnimationX = new TranslateAnimation(0, endX, 0, 0);
 //        translateAnimationX.setInterpolator(new LinearInterpolator());
 //        translateAnimationX.setRepeatCount(0);// 动画重复执行的次数
@@ -89,20 +100,52 @@ public class MainActivity extends BaseActivity {
 //        translateAnimationY.setRepeatCount(0);// 动画重复执行的次数
 //        translateAnimationX.setFillAfter(true);
 //
-//
-//
 //        AnimationSet set = new AnimationSet(false);
 //        set.setFillAfter(false);
 //        set.addAnimation(translateAnimationY);
 //        set.addAnimation(translateAnimationX);
 //        set.setDuration(800);// 动画的执行时间
+        //贝塞尔曲线中部移动部分
+        PointF pointF2 = getPointF(2);
+        PointF pointF1 = getPointF(1);
+        //贝塞尔曲线的起点
+        PointF pointF0 = new PointF(startLocation[0], startLocation[1]);
+        //贝塞尔曲线的终点
+        PointF pointF3 = new PointF(end_location[0], end_location[1]);
+        BezierEvalutor bezierEvalutor = new BezierEvalutor(pointF1, pointF2);
+        final ValueAnimator valueAnimator = ValueAnimator.ofObject(bezierEvalutor, pointF0, pointF3);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                PointF pointF = (PointF) valueAnimator.getAnimatedValue();
+                view.setX(pointF.x);
+                view.setY(pointF.y);
+            }
+        });
 
-        ObjectAnimator translationX = new ObjectAnimator().ofFloat(view, "translationX", endX);
-        ObjectAnimator translationY = new ObjectAnimator().ofFloat(view, "translationY", endY);
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.play(translationX).with(translationY);
-        animatorSet.setDuration(1000);
-        animatorSet.start();
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                anim_mask_layout.removeAllViews();
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+            }
+        });
+
+        valueAnimator.setTarget(view);
+
+//        ObjectAnimator translationX = new ObjectAnimator().ofFloat(view, "translationX", endX);
+//        ObjectAnimator translationY = new ObjectAnimator().ofFloat(view, "translationY", endY);
+//        AnimatorSet animatorSet = new AnimatorSet();
+//        animatorSet.play(translationX).with(translationY);
+
+        valueAnimator.setDuration(1000);
+        valueAnimator.setTarget(view);
+        valueAnimator.start();
 
 //        view.startAnimation(set);
         // 动画监听事件
@@ -168,5 +211,19 @@ public class MainActivity extends BaseActivity {
         view.buildDrawingCache();
         Bitmap bitmap = view.getDrawingCache();
         return bitmap;
+    }
+
+    private PointF getPointF(int i) {
+        PointF pointF=new PointF();
+        pointF.x=random.nextInt(mWidth);//0~loveLayout.Width
+        //为了美观,建议尽量保证P2在P1上面,那怎么做呢??
+        //只需要将该布局的高度分为上下两部分,让p1只能在下面部分范围内变化(1/2height~height),让p2只能在上面部分范围内变化(0~1/2height),因为坐标系是倒着的;
+        //0~loveLayout.Height/2
+        if (i==1) {
+            pointF.y=random.nextInt(30);//P1点Y轴坐标变化
+        }else if(i==2){//P2点Y轴坐标变化
+            pointF.y=random.nextInt(40);
+        }
+        return pointF;
     }
 }
