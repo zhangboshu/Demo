@@ -85,34 +85,18 @@ public class MainActivity extends BaseActivity {
         int[] end_location = new int[2];
         // rl_gouwuche是小球运动的终点 一般是购物车图标
         button8.getLocationInWindow(end_location);
-
         // 计算位移
         int endX = end_location[0] - startLocation[0];// 动画位移的X坐标
         int endY = end_location[1] - startLocation[1];// 动画位移的y坐标
 
-//        TranslateAnimation translateAnimationX = new TranslateAnimation(0, endX, 0, 0);
-//        translateAnimationX.setInterpolator(new LinearInterpolator());
-//        translateAnimationX.setRepeatCount(0);// 动画重复执行的次数
-//        translateAnimationX.setFillAfter(true);
-//
-//        TranslateAnimation translateAnimationY = new TranslateAnimation(0, 0, 0, endY);
-//        translateAnimationY.setInterpolator(new AccelerateInterpolator());
-//        translateAnimationY.setRepeatCount(0);// 动画重复执行的次数
-//        translateAnimationX.setFillAfter(true);
-//
-//        AnimationSet set = new AnimationSet(false);
-//        set.setFillAfter(false);
-//        set.addAnimation(translateAnimationY);
-//        set.addAnimation(translateAnimationX);
-//        set.setDuration(800);// 动画的执行时间
-        //贝塞尔曲线中部移动部分
-        PointF pointF2 = getPointF(2);
-        PointF pointF1 = getPointF(1);
+        PointF pointF1 = new PointF(end_location[0], startLocation[1]);
+        PointF pointF2 = new PointF(mWidth / 2, end_location[1]);
         //贝塞尔曲线的起点
         PointF pointF0 = new PointF(startLocation[0], startLocation[1]);
         //贝塞尔曲线的终点
         PointF pointF3 = new PointF(end_location[0], end_location[1]);
         BezierEvalutor bezierEvalutor = new BezierEvalutor(pointF1, pointF2);
+//        BezierEvaluateTwo bezierEvaluateTwo = new BezierEvaluateTwo(pointF1);
         final ValueAnimator valueAnimator = ValueAnimator.ofObject(bezierEvalutor, pointF0, pointF3);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -137,36 +121,9 @@ public class MainActivity extends BaseActivity {
         });
 
         valueAnimator.setTarget(view);
-
-//        ObjectAnimator translationX = new ObjectAnimator().ofFloat(view, "translationX", endX);
-//        ObjectAnimator translationY = new ObjectAnimator().ofFloat(view, "translationY", endY);
-//        AnimatorSet animatorSet = new AnimatorSet();
-//        animatorSet.play(translationX).with(translationY);
-
         valueAnimator.setDuration(1000);
         valueAnimator.setTarget(view);
         valueAnimator.start();
-
-//        view.startAnimation(set);
-        // 动画监听事件
-//        set.setAnimationListener(new Animation.AnimationListener() {
-//            // 动画的开始
-//            @Override
-//            public void onAnimationStart(Animation animation) {
-//                v.setVisibility(View.VISIBLE);
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animation animation) {
-//                // TODO Auto-generated method stub
-//            }
-//
-//            // 动画的结束
-//            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                v.setVisibility(View.GONE);
-//            }
-//        });
     }
 
     private ViewGroup createAnimLayout(Context context) {
@@ -211,19 +168,5 @@ public class MainActivity extends BaseActivity {
         view.buildDrawingCache();
         Bitmap bitmap = view.getDrawingCache();
         return bitmap;
-    }
-
-    private PointF getPointF(int i) {
-        PointF pointF=new PointF();
-        pointF.x=random.nextInt(mWidth);//0~loveLayout.Width
-        //为了美观,建议尽量保证P2在P1上面,那怎么做呢??
-        //只需要将该布局的高度分为上下两部分,让p1只能在下面部分范围内变化(1/2height~height),让p2只能在上面部分范围内变化(0~1/2height),因为坐标系是倒着的;
-        //0~loveLayout.Height/2
-        if (i==1) {
-            pointF.y=random.nextInt(30);//P1点Y轴坐标变化
-        }else if(i==2){//P2点Y轴坐标变化
-            pointF.y=random.nextInt(40);
-        }
-        return pointF;
     }
 }
