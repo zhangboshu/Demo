@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -21,7 +22,7 @@ import com.zhangboshu.demo.utils.DisplayUtil;
 
 import java.util.Random;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private Button button1;
     private Button button2;
@@ -59,9 +60,14 @@ public class MainActivity extends BaseActivity {
         mHeight = DisplayUtil.getMobileHeight(this);
 
 
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button1:
                 // 一个整型数组，用来存储按钮的在屏幕的X、Y坐标
                 int[] start_location = new int[2];
                 // 这是获取购买按钮的在屏幕的X、Y坐标（这也是动画开始的坐标）
@@ -71,8 +77,12 @@ public class MainActivity extends BaseActivity {
                 buyImg.setImageBitmap(getAddDrawBitMap());
                 // 开始执行动画
                 setAnim(buyImg, start_location);
-            }
-        });
+                break;
+            case R.id.button2:
+                Intent intent = new Intent(MainActivity.this, JavaStringActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     private void setAnim(final View v, int[] startLocation) {
@@ -214,16 +224,18 @@ public class MainActivity extends BaseActivity {
     }
 
     private PointF getPointF(int i) {
-        PointF pointF=new PointF();
-        pointF.x=random.nextInt(mWidth);//0~loveLayout.Width
+        PointF pointF = new PointF();
+        pointF.x = random.nextInt(mWidth);//0~loveLayout.Width
         //为了美观,建议尽量保证P2在P1上面,那怎么做呢??
         //只需要将该布局的高度分为上下两部分,让p1只能在下面部分范围内变化(1/2height~height),让p2只能在上面部分范围内变化(0~1/2height),因为坐标系是倒着的;
         //0~loveLayout.Height/2
-        if (i==1) {
-            pointF.y=random.nextInt(30);//P1点Y轴坐标变化
-        }else if(i==2){//P2点Y轴坐标变化
-            pointF.y=random.nextInt(40);
+        if (i == 1) {
+            pointF.y = random.nextInt(30);//P1点Y轴坐标变化
+        } else if (i == 2) {//P2点Y轴坐标变化
+            pointF.y = random.nextInt(40);
         }
         return pointF;
     }
+
+
 }
