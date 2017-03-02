@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -71,6 +72,14 @@ public class MainActivity extends BaseActivity {
                 buyImg.setImageBitmap(getAddDrawBitMap());
                 // 开始执行动画
                 setAnim(buyImg, start_location);
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SQLiteActivity.class);
+                startActivity(intent);
             }
         });
     }
