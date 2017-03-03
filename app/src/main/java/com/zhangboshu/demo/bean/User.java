@@ -41,7 +41,7 @@ public class User extends DataSupport {
     }
 
     public List<Money> getMoneys() {
-        return moneys;
+        return DataSupport.where("user_id = ?", String.valueOf(id)).find(Money.class);
     }
 
     public void setMoneys(List<Money> moneys) {
