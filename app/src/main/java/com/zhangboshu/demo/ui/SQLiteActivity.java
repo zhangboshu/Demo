@@ -92,12 +92,13 @@ public class SQLiteActivity extends AppCompatActivity implements View.OnClickLis
 
                 }
 
-                List<User> users = DataSupport.where("userid = ?", "123").find(User.class);
-                for (User user1 : users) {
-                    for (Money money1 : user1.getMoneys()) {
-                        Log.i("lllll", money1.getName());
-                    }
+                List<User> users = DataSupport.where("userid = ?", "123").limit(1).find(User.class);
+                List<Money> moneys = DataSupport.where("user_id = ?", String.valueOf(users.get(0).getId())).find(Money.class);
+                for (Money money1 : moneys) {
+                    String name = money1.getName();
+                    Log.i("nnnnnn", "money_name" + name);
                 }
+
                 break;
             case R.id.button12:
                 List<User> oy = DataSupport.where("userid = ? and name = ?", "321", "OY").find(User.class);

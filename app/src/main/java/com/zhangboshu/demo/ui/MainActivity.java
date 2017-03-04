@@ -89,14 +89,10 @@ public class MainActivity extends BaseActivity {
         anim_mask_layout = createAnimLayout(this);
         // 把动画小球添加到动画层
         anim_mask_layout.addView(v);
-        final View view = addViewToAnimLayout(v, startLocation);
         // 这是用来存储动画结束位置的X、Y坐标
         int[] end_location = new int[2];
         // rl_gouwuche是小球运动的终点 一般是购物车图标
         button8.getLocationInWindow(end_location);
-        // 计算位移
-        int endX = end_location[0] - startLocation[0];// 动画位移的X坐标
-        int endY = end_location[1] - startLocation[1];// 动画位移的y坐标
 
         PointF pointF1 = new PointF(end_location[0], startLocation[1]);
         PointF pointF2 = new PointF(mWidth / 2, end_location[1]);
@@ -111,8 +107,8 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 PointF pointF = (PointF) valueAnimator.getAnimatedValue();
-                view.setX(pointF.x);
-                view.setY(pointF.y);
+                v.setX(pointF.x);
+                v.setY(pointF.y);
             }
         });
 
@@ -120,18 +116,19 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                anim_mask_layout.removeAllViews();
+                v.setVisibility(View.GONE);
+                anim_mask_layout.removeView(v);
             }
 
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
+                v.setVisibility(View.VISIBLE);
             }
         });
 
-        valueAnimator.setTarget(view);
+        valueAnimator.setTarget(v);
         valueAnimator.setDuration(1000);
-        valueAnimator.setTarget(view);
         valueAnimator.start();
     }
 
@@ -145,17 +142,6 @@ public class MainActivity extends BaseActivity {
         animLayout.setBackgroundResource(android.R.color.transparent);
         rootView.addView(animLayout);
         return animLayout;
-    }
-
-    private View addViewToAnimLayout(final View view, int[] location) {
-        int x = location[0];
-        int y = location[1];
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.leftMargin = x;
-        lp.topMargin = y;
-        view.setLayoutParams(lp);
-        return view;
     }
 
     /**
