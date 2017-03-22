@@ -22,7 +22,7 @@ import com.zhangboshu.demo.utils.DisplayUtil;
 
 import java.util.Random;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private Button button1;
     private Button button2;
@@ -59,29 +59,43 @@ public class MainActivity extends BaseActivity {
         mWidth = DisplayUtil.getMobileWidth(this);
         mHeight = DisplayUtil.getMobileHeight(this);
 
+        button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
+        button3.setOnClickListener(this);
+        button4.setOnClickListener(this);
+        button5.setOnClickListener(this);
+        button6.setOnClickListener(this);
+        button7.setOnClickListener(this);
+        button8.setOnClickListener(this);
 
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 一个整型数组，用来存储按钮的在屏幕的X、Y坐标
-                int[] start_location = new int[2];
-                // 这是获取购买按钮的在屏幕的X、Y坐标（这也是动画开始的坐标）
-                v.getLocationInWindow(start_location);
-                buyImg = new ImageView(MainActivity.this);
-                // 设置buyImg的图片
-                buyImg.setImageBitmap(getAddDrawBitMap());
-                // 开始执行动画
-                setAnim(buyImg, start_location);
-            }
-        });
+    }
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button1:
+                goAnim(v);
+
+                break;
+            case R.id.button2:
                 Intent intent = new Intent(MainActivity.this, SQLiteActivity.class);
                 startActivity(intent);
-            }
-        });
+                break;
+            case R.id.button3:
+                break;
+        }
+    }
+
+    private void goAnim(View v) {
+        // 一个整型数组，用来存储按钮的在屏幕的X、Y坐标
+        int[] start_location = new int[2];
+        // 这是获取购买按钮的在屏幕的X、Y坐标（这也是动画开始的坐标）
+        v.getLocationInWindow(start_location);
+        buyImg = new ImageView(MainActivity.this);
+        // 设置buyImg的图片
+        buyImg.setImageBitmap(getAddDrawBitMap());
+        // 开始执行动画
+        setAnim(buyImg, start_location);
     }
 
     private void setAnim(final View v, int[] startLocation) {
@@ -164,4 +178,5 @@ public class MainActivity extends BaseActivity {
         Bitmap bitmap = view.getDrawingCache();
         return bitmap;
     }
+
 }
