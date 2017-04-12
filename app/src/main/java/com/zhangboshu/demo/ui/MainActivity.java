@@ -46,6 +46,12 @@ public class MainActivity extends BaseActivity {
         initViews();
     }
 
+    //实时监听网络变化
+    @Override
+    public void getNetNow(String netState) {
+
+    }
+
     private void initViews() {
         button1 = (Button) findViewById(R.id.button1);
         button2 = (Button) findViewById(R.id.button2);
