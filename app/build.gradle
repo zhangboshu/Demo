@@ -31,4 +31,7 @@ dependencies {
     compile 'org.litepal.android:core:1.4.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0'
     testCompile 'junit:junit:4.12'
+
+    compile('com.github.hotchemi:permissionsdispatcher:2.4.0')
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
 }

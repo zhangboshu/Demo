@@ -81,13 +81,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.button1:
                 goAnim(v);
-
                 break;
             case R.id.button2:
                 Intent intent = new Intent(MainActivity.this, SQLiteActivity.class);
                 startActivity(intent);
                 break;
             case R.id.button3:
+                Intent intent1 = new Intent(MainActivity.this, AnimationActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.button4:
+                startActivity(new Intent(MainActivity.this, PermissionsTextActivity.class));
                 break;
         }
     }

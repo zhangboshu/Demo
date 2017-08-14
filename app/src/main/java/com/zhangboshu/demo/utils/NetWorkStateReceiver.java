@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 
 /**
@@ -40,24 +39,24 @@ public class NetWorkStateReceiver extends BroadcastReceiver {
             }
             //API大于23时使用下面的方式进行网络监听
         }else {
-            //获得ConnectivityManager对象
-            ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-            //获取所有网络连接的信息
-            Network[] networks = connMgr.getAllNetworks();
-            //通过循环将网络信息逐个取出来
-            if (networks.length != 0){
-                for (int i=0; i < networks.length; i++){
-                    //获取ConnectivityManager对象对应的NetworkInfo对象
-                    NetworkInfo networkInfo = connMgr.getNetworkInfo(networks[i]);
-                    n.getNetwork(networkInfo.getTypeName());
-                    if (networkInfo.getTypeName().equals("WIFI")){
-                        break;
-                    }
-                }
-            }else{
-                n.getNetwork("NO");
-            }
+//            //获得ConnectivityManager对象
+//            ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//
+//            //获取所有网络连接的信息
+//            Network[] networks = connMgr.getAllNetworks();
+//            //通过循环将网络信息逐个取出来
+//            if (networks.length != 0){
+//                for (int i=0; i < networks.length; i++){
+//                    //获取ConnectivityManager对象对应的NetworkInfo对象
+//                    NetworkInfo networkInfo = connMgr.getNetworkInfo(networks[i]);
+//                    n.getNetwork(networkInfo.getTypeName());
+//                    if (networkInfo.getTypeName().equals("WIFI")){
+//                        break;
+//                    }
+//                }
+//            }else{
+//                n.getNetwork("NO");
+//            }
         }
     }
 
