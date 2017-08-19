@@ -3,6 +3,7 @@ package com.zhangboshu.demo.ui;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -47,9 +48,25 @@ public class PermissionsTextActivity extends AppCompatActivity {
     }
 
 
-    @NeedsPermission(Manifest.permission.CAMERA)
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showCamera() {
         Toast.makeText(this, "给了权限", Toast.LENGTH_SHORT).show();
+        startActivityForResult(new Intent(this, BarCodeActivity.class), 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 1:
+                if (resultCode == RESULT_OK){
+                    if (data != null){
+                        String result = (String) data.getExtras().get("result");
+                        button.setText(result);
+                    }
+                }
+                break;
+        }
     }
 
     @Override
@@ -59,8 +76,7 @@ public class PermissionsTextActivity extends AppCompatActivity {
     }
 
 
-
-    @OnShowRationale(Manifest.permission.CAMERA)
+    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationale(final PermissionRequest request) {
         new AlertDialog.Builder(this)
                 .setMessage("申请相机权限")
@@ -74,12 +90,12 @@ public class PermissionsTextActivity extends AppCompatActivity {
                 .show();
     }
 
-    @OnPermissionDenied(Manifest.permission.CAMERA)
+    @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void denied() {
         Toast.makeText(this, "拒绝权限", Toast.LENGTH_SHORT).show();
     }
 
-    @OnNeverAskAgain(Manifest.permission.CAMERA)
+    @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void doNotAsk() {
         Toast.makeText(this, "不在询问", Toast.LENGTH_SHORT).show();
     }

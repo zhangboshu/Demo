@@ -3,6 +3,9 @@
           package="com.zhangboshu.demo">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".base.MyApplication"
@@ -25,6 +28,8 @@
         <activity android:name=".ui.AnimationActivity">
         </activity>
         <activity android:name=".ui.PermissionsTextActivity">
+        </activity>
+        <activity android:name=".ui.BarCodeActivity">
         </activity>
     </application>
 
