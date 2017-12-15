@@ -7,6 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.zhangboshu.demo.utils.NetWorkStateReceiver;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public abstract class BaseActivity extends AppCompatActivity implements NetWorkStateReceiver.NetStateInterface {
 
     private NetWorkStateReceiver receiver;
@@ -23,13 +29,23 @@ public abstract class BaseActivity extends AppCompatActivity implements NetWorkS
         receiver.getNetState(this);
     }
 
+    //rxjava请求封装
+    public <T> ObservableTransformer<T, T> setThread() {
+        return new ObservableTransformer<T, T>() {
+            @Override
+            public ObservableSource<T> apply(Observable<T> upstream) {
+                return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(receiver);
     }
 
-    public String getNet(){
+    public String getNet() {
         return net;
     }
 

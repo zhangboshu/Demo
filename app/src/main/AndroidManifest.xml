@@ -2,10 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.zhangboshu.demo">
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".base.MyApplication"
@@ -30,6 +31,14 @@
         <activity android:name=".ui.PermissionsTextActivity">
         </activity>
         <activity android:name=".ui.BarCodeActivity">
+        </activity>
+        <activity android:name=".ui.fragmentText.FragmentTextActivity">
+        </activity>
+        <activity android:name=".base.BaseFragmentActivity">
+        </activity>
+        <activity android:name=".ui.fragmentText.fragment.TextFragment1">
+        </activity>
+        <activity android:name=".rxJavaTest.RxTestActivity">
         </activity>
     </application>
 

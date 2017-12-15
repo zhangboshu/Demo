@@ -13,7 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.zhangboshu.demo.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -26,17 +30,31 @@ import permissions.dispatcher.RuntimePermissions;
 public class PermissionsTextActivity extends AppCompatActivity {
 
     private Button button;
+    private int[] textArray;
+    private String[] testString;
+    private Map<String, String> testMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permissions_text);
 
+        textArray = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+        testString = new String[]{"好的", "去死", "wtf"};
+        testMap = new HashMap<>();
+        testMap.put("a1", "wtf1");
+        testMap.put("a2", "wtf2");
+        testMap.put("a3", "wtf3");
+        testMap.put("a4", "wtf4");
+
         button = (Button) findViewById(R.id.button13);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestPermission();
+//                requestPermission();
+                Logger.d(textArray);
+                Logger.d(testString);
+                Logger.d(testMap);
             }
         });
     }
@@ -57,10 +75,10 @@ public class PermissionsTextActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+        switch (requestCode) {
             case 1:
-                if (resultCode == RESULT_OK){
-                    if (data != null){
+                if (resultCode == RESULT_OK) {
+                    if (data != null) {
                         String result = (String) data.getExtras().get("result");
                         button.setText(result);
                     }

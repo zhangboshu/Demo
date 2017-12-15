@@ -2,6 +2,8 @@ package com.zhangboshu.demo.base;
 
 import android.app.Application;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 import com.zhangboshu.demo.bean.User;
 
 import org.litepal.LitePal;
@@ -23,6 +25,8 @@ public class MyApplication extends Application {
         super.onCreate();
         LitePal.initialize(getApplicationContext()); //初始化数据库框架
         Connector.getDatabase();
+
+        Logger.addLogAdapter(new AndroidLogAdapter());
 
         List<User> users = DataSupport.where("userid = ?", "123").find(User.class);
         if (users.isEmpty()){

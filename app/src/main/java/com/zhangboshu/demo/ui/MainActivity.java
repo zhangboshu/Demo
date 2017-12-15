@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 
 import com.zhangboshu.demo.R;
 import com.zhangboshu.demo.base.BaseActivity;
+import com.zhangboshu.demo.rxJavaTest.RxTestActivity;
 import com.zhangboshu.demo.utils.BezierEvalutor;
 import com.zhangboshu.demo.utils.DisplayUtil;
 
@@ -92,6 +93,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.button4:
                 startActivity(new Intent(MainActivity.this, PermissionsTextActivity.class));
+                break;
+            case R.id.button5:
+                startActivity(new Intent(MainActivity.this, RxTestActivity.class));
+                break;
+            case R.id.button6:
                 break;
         }
     }
