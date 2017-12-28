@@ -40,6 +40,8 @@
         </activity>
         <activity android:name=".rxJavaTest.RxTestActivity">
         </activity>
+        <activity android:name=".rxJava.RxJavaActivity">
+        </activity>
     </application>
 
 </manifest>
