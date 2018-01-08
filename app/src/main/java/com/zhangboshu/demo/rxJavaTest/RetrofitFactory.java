@@ -38,7 +38,7 @@ public class RetrofitFactory {
 
     }
 
-    //单例
+    //单例模式
     public static RetrofitFactory getInstence() {
         if (mRetrofitFactory == null) {
             synchronized (RetrofitFactory.class) {
