@@ -410,4 +410,14 @@ public class BaseBean {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "BaseBean{" +
+                "count=" + count +
+                ", start=" + start +
+                ", total=" + total +
+                ", books=" + books +
+                '}';
+    }
 }

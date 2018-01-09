@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import com.zhangboshu.demo.R;
 import com.zhangboshu.demo.base.BaseActivity;
 import com.zhangboshu.demo.dagger.DaggerActivity;
+import com.zhangboshu.demo.dagger.myTest.GoDaggerActivity;
 import com.zhangboshu.demo.rxJava.RxJavaActivity;
 import com.zhangboshu.demo.rxJavaTest.RxTestActivity;
 import com.zhangboshu.demo.utils.BezierEvalutor;
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Random random = new Random();
     private int mWidth;
     private int mHeight;
+    private Button button16;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button6 = (Button) findViewById(R.id.button6);
         button7 = (Button) findViewById(R.id.button7);
         button8 = (Button) findViewById(R.id.button8);
+        button16 = (Button) findViewById(R.id.button16);
 
         mWidth = DisplayUtil.getMobileWidth(this);
         mHeight = DisplayUtil.getMobileHeight(this);
@@ -76,6 +79,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button6.setOnClickListener(this);
         button7.setOnClickListener(this);
         button8.setOnClickListener(this);
+        button16.setOnClickListener(this);
 
     }
 
@@ -104,6 +108,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.button7:
                 startActivity(new Intent(MainActivity.this, DaggerActivity.class));
+            case R.id.button16:
+                startActivity(new Intent(MainActivity.this, GoDaggerActivity.class));
+                break;
+
         }
     }
 
