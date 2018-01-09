@@ -25,12 +25,12 @@ public class GoModule {
     }
 
     @Provides
-    GoPresenterIml providesGoPresenter(){
-        return new GoPresenterIml(goIView, context);
+    GoModel providesGoModel(){
+        return new GoModel();
     }
 
     @Provides
-    GoModel providesGoModule(){
-        return new GoModel(context);
+    GoPresenterIml providesGoPresenter(){
+        return new GoPresenterIml(goIView);
     }
 }

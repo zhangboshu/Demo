@@ -16,11 +16,9 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class GoModel extends BaseModel {
-    private Context context;
     private final ApiService api;
 
-    public GoModel(Context context) {
-        this.context = context;
+    public GoModel() {
         api = RetrofitFactory.getInstence().API();
     }
 

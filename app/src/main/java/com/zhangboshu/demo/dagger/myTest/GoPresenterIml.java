@@ -14,13 +14,11 @@ import javax.inject.Inject;
 public class GoPresenterIml extends BasePresenterImpl<GoIView, BaseBean> {
 
 
-    private final Context context;
     @Inject
     GoModel goModel;
 
-    public GoPresenterIml(GoIView view, Context context) {
+    public GoPresenterIml(GoIView view) {
         super(view);
-        this.context = context;
 //        model = new GoModel(context);
         GoComponent build = DaggerGoComponent.builder().build();//调取无参构造器
         build.injectPresenter(this);
