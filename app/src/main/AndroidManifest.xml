@@ -42,6 +42,8 @@
         </activity>
         <activity android:name=".rxJava.RxJavaActivity">
         </activity>
+        <activity android:name=".dagger.DaggerActivity">
+        </activity>
     </application>
 
 </manifest>
