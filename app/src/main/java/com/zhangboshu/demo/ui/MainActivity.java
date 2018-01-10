@@ -108,6 +108,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.button7:
                 startActivity(new Intent(MainActivity.this, DaggerActivity.class));
+                break;
             case R.id.button16:
                 startActivity(new Intent(MainActivity.this, GoDaggerActivity.class));
                 break;
