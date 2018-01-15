@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zhangboshu.demo">
+          package="com.zhangboshu.demo">
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".base.MyApplication"
@@ -17,23 +17,25 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.JavaStringActivity"></activity>
-        <activity android:name=".ui.SQLiteActivity"></activity>
-        <activity android:name=".ui.AnimationActivity"></activity>
-        <activity android:name=".ui.PermissionsTextActivity"></activity>
-        <activity android:name=".ui.BarCodeActivity"></activity>
-        <activity android:name=".ui.fragmentText.FragmentTextActivity"></activity>
-        <activity android:name=".base.BaseFragmentActivity"></activity>
-        <activity android:name=".ui.fragmentText.fragment.TextFragment1"></activity>
-        <activity android:name=".rxJavaTest.RxTestActivity"></activity>
-        <activity android:name=".rxJava.RxJavaActivity"></activity>
-        <activity android:name=".dagger.DaggerActivity"></activity>
-        <activity android:name=".dagger.myTest.GoDaggerActivity"></activity>
+        <activity android:name=".ui.JavaStringActivity"/>
+        <activity android:name=".ui.SQLiteActivity"/>
+        <activity android:name=".ui.AnimationActivity"/>
+        <activity android:name=".ui.PermissionsTextActivity"/>
+        <activity android:name=".ui.BarCodeActivity"/>
+        <activity android:name=".ui.fragmentText.FragmentTextActivity"/>
+        <activity android:name=".base.BaseFragmentActivity"/>
+        <activity android:name=".ui.fragmentText.fragment.TextFragment1"/>
+        <activity android:name=".rxJavaTest.RxTestActivity"/>
+        <activity android:name=".rxJava.RxJavaActivity"/>
+        <activity android:name=".dagger.DaggerActivity"/>
+        <activity android:name=".dagger.myTest.GoDaggerActivity"/>
+        <activity android:name=".daggerAndroidTest.DaggerAndroidActivity">
+        </activity>
     </application>
 
 </manifest>

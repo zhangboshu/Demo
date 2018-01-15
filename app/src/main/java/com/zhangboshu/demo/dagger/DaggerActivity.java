@@ -1,14 +1,14 @@
 package com.zhangboshu.demo.dagger;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.zhangboshu.demo.R;
+import com.zhangboshu.demo.base.BaseActivity;
 
 import javax.inject.Inject;
 
-public class DaggerActivity extends AppCompatActivity {
+public class DaggerActivity extends BaseActivity {
 
     private static final String TAG = "DaggerActivity";
 
@@ -27,6 +27,11 @@ public class DaggerActivity extends AppCompatActivity {
 
         String show = pot.show();
         Log.d(TAG, "potShow: " + show);
+
+    }
+
+    @Override
+    public void getNetNow(String netState) {
 
     }
 }
